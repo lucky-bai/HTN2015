@@ -21,12 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
           delete history["title"];
           delete history["typedCount"];
           delete history["visitCount"];
+          delete history["url"];
 
           // Rename keys
           history["timestamp"] = Math.floor(history["lastVisitTime"]/1000);
           delete history["lastVisitTime"];
-          history["subject"] = history["url"];
-          delete history["url"];
 
           // Add extra keys
           history["source"] = "chrome";
