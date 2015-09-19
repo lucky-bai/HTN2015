@@ -37,11 +37,35 @@
 <body id="page-top">
 
     <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h2>Your recent sleep history</h2>
-                <div id='chart1' width=640 height=480></div>
-            </div>
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Sleep Guardian</h1>
+            <div style="height:1em"></div>
+            <p>Intelligent software to track your sleep</p>
+            <hr>
+
+            <h2>Your recent sleep history</h2>
+            <div id='chart1' width=640 height=480></div>
+
+            <div style="height:1em"></div>
+            <hr>
+            <div style="height:1em"></div>
+
+            <h2> You sleep on average <span id="field1">7.84</span> hours a day </h2>
+
+            <div style="height:1em"></div>
+            <hr>
+            <div style="height:1em"></div>
+
+            <h2> In 2013, a survey found that average adults sleep 6.80 hours a day. Doctors recommend 7-8 hours a day for a healthy lifestyle. </h2>
+
+            <div style="height:1em"></div>
+            <hr>
+            <div style="height:1em"></div>
+
+            <h2>You are getting more sleep than <span id="field2">89</span>% of adults.</h2>
+
+            <!-- end -->
+            <div style="height:8em"></div>
         </div>
     </header>
 
@@ -70,6 +94,10 @@ function generate_fake_data(){
     for(var i=0; i<100; i++){
         sleep_time.push([Date.UTC(2015,1,i), 4 + Math.random() * 10]);
     }
+}
+
+function compute_sleep_percentile(){
+    // f(6.8) = 50
 }
 
 $(document).ready(function(){

@@ -58,6 +58,8 @@ def root():
 
 @app.route('/graphs')
 def render_graphs():
+    #timestamps = Timestamps.get_timestamps('')
+    #timestamps_list = [ts['timestamp'] for ts in timestamps]
     return render_template('graphs.html')
 
 if __name__ == '__main__':
