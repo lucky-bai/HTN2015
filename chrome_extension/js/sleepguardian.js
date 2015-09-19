@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   // IDLE
-  chrome.idle.onStateChanged.addListener(function(state) {
+  chrome.idle.onStateChanged.addListener(function (state) {
     console.log(state);
+  });
+
+  chrome.alarms.onAlarm.addListener(function (alarm) {
+    if (alarm["name"] == "sendDataAlarm") {
+      send_data();
+    }
   });
 
   if (!_.isEmpty(localStorage.getItem("username"))) {
@@ -16,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.tabs.getSelected(null, function(tab) {
       var full_name = $('#full_name').val()
       var username = $('#username').val()
-        
+      
       $.get("http://www.sleepguardian.co/user/" + username)
         .done(function (data) {
           // User exists
@@ -26,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
           $("#name").text(data["full_name"]);
           localStorage.setItem("username", data["username"]);
           localStorage.setItem("full_name", data["full_name"]);
-
+          chrome.alarms.create("sendDataAlarm", {"when": Date.now(), "periodInMinutes": 1440});
         })
         .fail(function (data) {
           // User does not exist
@@ -44,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $("#name").text(data["full_name"]);
             localStorage.setItem("username", data["username"]);
             localStorage.setItem("full_name", data["full_name"]);
+            chrome.alarms.create("sendDataAlarm", {"when": Date.now(), "periodInMinutes": 1440});
           }).fail(function (data) {
             console.log("Failed to create user");
           });
@@ -53,6 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   $('#sendDataForm').submit(function (evt) {
+    send_data();
+    evt.preventDefault();
+  });
+}, false);
+
+function send_data() {
     // Send Data
     var lastSent = parseInt(localStorage.getItem("lastSent")) ? parseInt(localStorage.getItem("lastSent")) : 0;
     
@@ -90,7 +103,4 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("No Data to Send");
       }
     });
-
-    evt.preventDefault();
-  });
-}, false);
+}
