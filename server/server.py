@@ -10,8 +10,17 @@ app = Flask(__name__)
 def create_user():
     user_info = request.get_json(force=True)
     status, message = Users.create(user_info)
-    http_status = 200 if status else 400
-    return message, http_status
+    return_dict = {
+        'created': status
+    }
+    if status:
+        http_status = 200
+        return_dict['username'] = user_info['username']
+        return_dict['full_name'] = user_info['full_name']
+    else:
+        http_status = 400
+
+    return jsonify(return_dict), http_status
 
 
 @app.route('/user/<username>', methods=['GET'])

@@ -1,16 +1,41 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html >
   <head>
     <title>Sleep Guardian</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="js/sleepguardian.js"></script>
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/underscore-min.js"></script>
     <script src="js/lodash.min.js"></script>
   </head>
-  <body>
-    <h1>Sleep Guardian</h1>
-    <input id="full_name" type="text" placeholder="Full Name"></input>
-    <input id="username" type="text" placeholder="Username"></input>
-    <button id="sendData">Send History</button>
+  <body class="align">
+    <div class="site__container">
+      <div class="grid__container">
+        <h1>Sleep Guardian</h1>
+      </div>
+      <div id="welcome__container" class="grid__container">
+        <p>Welcome, <span id="name"></span></p>
+          <form id="sendDataForm" action="" method="post" class="form form--login">
+            <div class="form__field">
+              <input id="sendDataButton" type="submit" value="Send Data">
+            </div>
+          </form>
+      </div>
+      <div id="form__container" class="grid__container">
+        <form id="loginForm" action="" method="post" class="form form--login">
+          <div class="form__field">
+            <label class="fontawesome-user" for="full_name"><span class="hidden">Full Name</span></label>
+            <input id="full_name" type="text" class="form__input" placeholder="Full Name" required>
+          </div>
+          <div class="form__field">
+            <label class="fontawesome-globe" for="username"><span class="hidden">Username</span></label>
+            <input id="username" type="text" class="form__input" placeholder="Username" required>
+          </div>
+          <div class="form__field">
+            <input id="loginButton" type="submit" value="Sign In">
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
