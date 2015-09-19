@@ -1,11 +1,10 @@
-package com.tuzhucheng.sleeptracker;
+package co.sleepguardian.sleepguardian;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageEvents.Event;
