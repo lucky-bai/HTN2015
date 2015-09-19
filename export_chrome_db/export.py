@@ -20,8 +20,8 @@ def main():
   ts_list = sorted(ts_list)
   for ts in ts_list:
     unix_ts = chrome_timestamp_to_unix(ts)
-    dt = datetime.datetime.fromtimestamp(unix_ts)
-    print dt
+    #dt = datetime.datetime.fromtimestamp(unix_ts)
+    print unix_ts
 
 # This tool is able to collect all timestamps from chrome history.
 # However, it doesn't account for timezone changes (all timestamps are
