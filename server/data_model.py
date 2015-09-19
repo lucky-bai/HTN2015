@@ -38,6 +38,8 @@ class Users(object):
         :return: A dictionary containing the user information. None if not found.
         """
         user = users_collection.find_one({'username': username})
+        if user:
+            user.pop('_id')
         return user
 
 
@@ -78,10 +80,10 @@ class Timestamps(object):
         """
         user = users_collection.find_one({'username': username})
         if not user:
-            # Silent fail by returning empty list
-            return []
+            return None
 
         timestamps = timestamps_collection.find({'username': username})
+        timestamps = list(timestamps)
         for timestamp in timestamps:
             timestamp.pop('_id')
 
