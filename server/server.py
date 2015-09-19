@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, \
+    send_from_directory
 
 from data_model import Users, Timestamps
 
@@ -37,6 +38,19 @@ def get_timestamps(username):
     if timestamps is None:
         timestamps = []
     return jsonify({'timestamps': timestamps}), http_status
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('templates/js', path)
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('templates/css', path)
+
+@app.route('/img/<path:path>')
+def send_img(path):
+    return send_from_directory('templates/img', path)
+
 
 @app.route('/')
 def root():
