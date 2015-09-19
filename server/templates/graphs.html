@@ -39,7 +39,8 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <canvas id='chart1' width=640 height=480></canvas>
+                <h2>Your recent sleep history</h2>
+                <div id='chart1' width=640 height=480></div>
             </div>
         </div>
     </header>
@@ -47,7 +48,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-    <script src="js/Chart.js"></script>
+    <script src="js/highcharts.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -63,38 +64,59 @@
 
 <script>
 
-days = [];
 sleep_time = [];
 
 function generate_fake_data(){
     for(var i=0; i<100; i++){
-        days.push(i);
-        sleep_time.push(4 + Math.random() * 10);
+        sleep_time.push([Date.UTC(2015,1,i), 4 + Math.random() * 10]);
     }
 }
 
 $(document).ready(function(){
     generate_fake_data();
-    var data = {
-        labels: days,
-        datasets: [
-            {
-                label: "Hours slept",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: sleep_time
-            }
-        ]
-    };
-    var options = {
-        scaleFontColor: "#FFF"
-    };
-    var ctx = $("#chart1").get(0).getContext("2d");
-    var myLineChart = new Chart(ctx).Line(data, options);
+
+    $('#chart1').highcharts({
+        chart: {
+            type: 'line',
+            backgroundColor: 'rgba(44,51,56,0.1)',
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            title:{
+                text: 'Date',
+                style:{
+                    color: 'white'
+                }
+            },
+            labels:{
+                style:{
+                    color: 'white'
+                }
+            },
+            type:'datetime'
+        },
+        yAxis: {
+            title: {
+                text: 'Hours slept',
+                style:{
+                    color: 'white'
+                }
+            },
+            labels:{
+                style:{
+                    color: 'white'
+                }
+            },
+            min:0
+        },
+        series: [{
+            name: 'Hours slept',
+            data: sleep_time,
+            showInLegend: false,
+        }]
+    });
 });
 </script>
 
