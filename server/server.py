@@ -56,5 +56,9 @@ def send_img(path):
 def root():
     return render_template('index.html')
 
+@app.route('/graphs')
+def render_graphs():
+    return render_template('graphs.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

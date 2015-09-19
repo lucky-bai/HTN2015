@@ -39,18 +39,7 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>Sleep Guardian</h1>
-              <div style="height:1em"></div>
-                <p>Intelligent software to track your sleep</p>
-                <hr>
-
-
-              <div class="row">
-                <input class="col-md-4 col-md-offset-4 input-lg" id="inputlg" placeholder="Username" style="color:black" type="text">
-              </div>
-              <div style="height:3em"></div>
-
-                <a href="graphs" class="btn btn-primary btn-xl page-scroll">Get your data!</a>
+                <canvas id='chart1' width=640 height=480></canvas>
             </div>
         </div>
     </header>
@@ -58,6 +47,7 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+    <script src="js/Chart.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -69,6 +59,44 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+
+
+<script>
+
+days = [];
+sleep_time = [];
+
+function generate_fake_data(){
+    for(var i=0; i<100; i++){
+        days.push(i);
+        sleep_time.push(4 + Math.random() * 10);
+    }
+}
+
+$(document).ready(function(){
+    generate_fake_data();
+    var data = {
+        labels: days,
+        datasets: [
+            {
+                label: "Hours slept",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: sleep_time
+            }
+        ]
+    };
+    var options = {
+        scaleFontColor: "#FFF"
+    };
+    var ctx = $("#chart1").get(0).getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data, options);
+});
+</script>
 
 </body>
 
