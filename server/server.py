@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 from data_model import Users, Timestamps
 
@@ -38,6 +38,9 @@ def get_timestamps(username):
         timestamps = []
     return jsonify({'timestamps': timestamps}), http_status
 
+@app.route('/')
+def root():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
