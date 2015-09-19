@@ -17,13 +17,15 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#welcome__container").hide();
   }
 
+  var server = "http://www.sleepguardian.co";
+
   $('#loginForm').submit(function (evt) {
     // Login
     chrome.tabs.getSelected(null, function(tab) {
       var full_name = $('#full_name').val()
       var username = $('#username').val()
       
-      $.get("http://www.sleepguardian.co/user/" + username)
+      $.get(server + "/user/" + username)
         .done(function (data) {
           // User exists
           console.log("User exists");
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log("User does not exist");
           $.ajax({
             method: "POST",
-            url: "http://www.sleepguardian.co/user",
+            url: server + "/user",
             contentType: "application/json",
             data: JSON.stringify({ "username": username,
                     "full_name": full_name })
@@ -91,7 +93,7 @@ function send_data() {
       if(!_.isEmpty(history)) {
         $.ajax({
           method: "POST",
-          url: "http://www.sleepguardian.co/user/" + localStorage.getItem("username") + "/timestamps",
+          url: server + "/user/" + localStorage.getItem("username") + "/timestamps",
           contentType: "application/json",
           data: JSON.stringify(history)
         }).done(function (data) {
