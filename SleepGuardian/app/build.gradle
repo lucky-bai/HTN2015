@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.tuzhucheng.sleeptracker"
+        applicationId "co.sleepguardian.sleepguardian"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

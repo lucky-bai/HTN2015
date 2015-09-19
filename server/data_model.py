@@ -38,7 +38,8 @@ class Users(object):
         :return: A dictionary containing the user information. None if not found.
         """
         user = users_collection.find_one({'username': username})
-        user.pop('_id')
+        if user:
+            user.pop('_id')
         return user
 
 
