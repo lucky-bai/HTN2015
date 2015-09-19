@@ -1,13 +1,8 @@
-import json
 from flask import Flask, request, jsonify
 
 from data_model import Users, Timestamps
 
 app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
 
 
 @app.route('/user', methods=['POST'])
@@ -21,15 +16,27 @@ def create_user():
 @app.route('/user/<username>', methods=['GET'])
 def get_user(username):
     user_info = Users.get(username)
+    http_status = 200 if user_info else 404
     if user_info is None:
         user_info = {}
-    http_status = 200 if user_info else 404
     return jsonify(user_info), http_status
 
 
-@app.route('/user/<username>/timestamps')
+@app.route('/user/<username>/timestamps', methods=['POST'])
 def upload_timestamps(username):
-    pass
+    timestamps = request.get_json(force=True)
+    status, message = Timestamps.upload(username, timestamps)
+    http_status = 200 if status else 400
+    return message, http_status
+
+
+@app.route('/user/<username>/timestamps', methods=['GET'])
+def get_timestamps(username):
+    timestamps = Timestamps.get_timestamps(username)
+    http_status = 200 if timestamps else 404
+    if timestamps is None:
+        timestamps = []
+    return jsonify({'timestamps': timestamps}), http_status
 
 
 if __name__ == '__main__':
