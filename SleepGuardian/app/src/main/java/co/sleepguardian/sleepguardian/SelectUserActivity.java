@@ -55,7 +55,7 @@ public class SelectUserActivity extends Activity {
     }
 
     private void signUpOrSignIn(String username, final String fullName) {
-        String apiUrl = Common.HOST;
+        String apiUrl = Common.HOST + "/" + Common.USER;
         JSONObject userInfo = new JSONObject();
         try {
             userInfo.put("username", username);
@@ -68,14 +68,12 @@ public class SelectUserActivity extends Activity {
                 (Request.Method.POST, apiUrl, userInfo.toString(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println(response.toString());
                         Common.makeToast(getApplicationContext(), "Welcome " + fullName + "!");
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
                     }
                 });
         Volley.newRequestQueue(this).add(jsObjRequest);

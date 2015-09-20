@@ -31,7 +31,6 @@ import java.util.Date;
 public class UploadActivity extends Activity {
 
     public static final String UPLOADED_UNTIL_KEY = "uploaded_until";
-    public static final String USER = "user";
     public static final String TIMESTAMPS = "timestamps";
 
     @Override
@@ -92,19 +91,17 @@ public class UploadActivity extends Activity {
     }
 
     private void upload(String username, JSONArray events) {
-        String apiUrl = Common.HOST + "/" + USER + "/" + username + "/" + TIMESTAMPS;
+        String apiUrl = Common.HOST + "/" + Common.USER + "/" + username + "/" + TIMESTAMPS;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, apiUrl, events.toString(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println(response.toString());
                         Common.makeToast(getApplicationContext(), "Uploaded successfully to server!");
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
                     }
                 });
         Volley.newRequestQueue(this).add(jsObjRequest);

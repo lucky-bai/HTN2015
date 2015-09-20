@@ -7,6 +7,7 @@ public class Common {
 
     public static final String PREFS_NAME = "SleepGuardianPrefs";
     public static final String USERNAME_PREF_KEY = "username";
+    public static final String USER = "user";
     public static final String HOST = "http://www.sleepguardian.co";
 
     public static void makeToast(Context context, CharSequence text) {
