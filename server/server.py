@@ -55,12 +55,12 @@ def get_timestamps(username):
     return jsonify({'timestamps': timestamps}), http_status
 
 @app.route('/user/<username>/sleep', methods=['GET'])
+@crossdomain(origin='*')
 def get_sleep(username):
     timestamps = Timestamps.get_timestamps(username)
     http_status = 200 if timestamps else 404
     if timestamps is None:
-        timestamps = []
-        return jsonify({'timestamps': timestamps}), http_status
+        return jsonify({'timestamps': []}), http_status
 
     timestamps_list = [ts['timestamp'] for ts in timestamps]
     sleep = compute_sleep_time(timestamps_list)

@@ -91,15 +91,6 @@
 sleep_time = [];
 avg = 0;
 
-function generate_fake_data(){
-    for(var i=0; i<100; i++){
-        var t = 4 + Math.random() * 8;
-        sleep_time.push([Date.UTC(2015,1,i), t]);
-        avg += t
-    }
-    avg /= 100;
-}
-
 function compute_sleep_percentile(x){
     var p = 18.5*x - 70;
     if(p < 0) return 0;
@@ -107,8 +98,15 @@ function compute_sleep_percentile(x){
     return p;
 }
 
-$(document).ready(function(){
-    generate_fake_data();
+function load_graph(data){
+    sleep_time = [];
+    for(var i=0; i<data.length; i++){
+        sleep_time.push([data[i][0] * 1000, data[i][1]]);
+        avg += data[i][1];
+    }
+    avg /= data.length;
+
+    console.log(data);
     var percentile = Math.round(compute_sleep_percentile(avg));
     $('#field1').text(Math.round(avg*100)/100);
     $('#field2').text(percentile);
@@ -155,11 +153,13 @@ $(document).ready(function(){
             showInLegend: false,
         }]
     });
-    
+}
+
+$(document).ready(function(){
     $.ajax({
         url: "/user/" + localStorage.getItem("username") + "/sleep",
-        done: function(data){
-            console.log(data);
+        success: function(data){
+            load_graph(data.sleep);
         }
     });
 });
