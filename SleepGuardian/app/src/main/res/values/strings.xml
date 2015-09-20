@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Sleep Guardian</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="username_hint">Username</string>
+    <string name="save">Save</string>
+    <string name="upload">Upload</string>
     <string name="action_settings">Settings</string>
 </resources>
