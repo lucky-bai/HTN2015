@@ -72,10 +72,6 @@
 
     <script>
     $(document).ready(function(){
-        if (localStorage.getItem("username")) {
-            window.location.href = '/graphs';
-        }
-
         $('#getYourData').click(function (evt) {
             localStorage.setItem("username", $("#inputlg").val());
             window.location.href = '/graphs';
