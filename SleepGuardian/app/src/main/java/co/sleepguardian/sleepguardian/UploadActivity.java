@@ -116,7 +116,7 @@ public class UploadActivity extends Activity {
             message = "You have never uploaded app usage statistics before. Tap on upload to upload now.";
         } else {
             Date date = new Date(uploadedUntil);
-            DateFormat formatter = new SimpleDateFormat("yyyy-mm-d HH:mm:ss");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-d HH:mm:ss");
             String dateFormatted = formatter.format(date);
             message = "App usage statistics up to " + dateFormatted + " are uploaded. Tap on upload to upload data collected since.";
         }
