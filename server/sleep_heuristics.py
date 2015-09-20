@@ -50,17 +50,3 @@ def compute_sleep_time(dates):
   print "num", len(hours_slept)
 
   return hours_slept_list
-
-
-def main():
-  # Parse into datetime
-  dfile = open('../export_chrome_db/bai_chrome.txt', 'r').readlines()
-  dates = []
-  for dt_line in dfile:
-    dates.append(datetime.datetime.fromtimestamp(int(dt_line)))
-
-  hours_slept_list = compute_sleep_time(dates)
-
-main()
-
-

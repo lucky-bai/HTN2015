@@ -89,19 +89,29 @@
 <script>
 
 sleep_time = [];
+avg = 0;
 
 function generate_fake_data(){
     for(var i=0; i<100; i++){
-        sleep_time.push([Date.UTC(2015,1,i), 4 + Math.random() * 10]);
+        var t = 4 + Math.random() * 8;
+        sleep_time.push([Date.UTC(2015,1,i), t]);
+        avg += t
     }
+    avg /= 100;
 }
 
-function compute_sleep_percentile(){
-    // f(6.8) = 50
+function compute_sleep_percentile(x){
+    var p = 18.5*x - 70;
+    if(p < 0) return 0;
+    if(p > 100) return 100;
+    return p;
 }
 
 $(document).ready(function(){
     generate_fake_data();
+    var percentile = Math.round(compute_sleep_percentile(avg));
+    $('#field1').text(Math.round(avg*100)/100);
+    $('#field2').text(percentile);
 
     $('#chart1').highcharts({
         chart: {
@@ -144,6 +154,13 @@ $(document).ready(function(){
             data: sleep_time,
             showInLegend: false,
         }]
+    });
+    
+    $.ajax({
+        url: "/user/" + localStorage.getItem("username") + "/sleep",
+        done: function(data){
+            console.log(data);
+        }
     });
 });
 </script>
