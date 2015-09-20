@@ -92,16 +92,21 @@ public class UploadActivity extends Activity {
 
     private void upload(String username, JSONArray events) {
         String apiUrl = Common.HOST + "/" + Common.USER + "/" + username + "/" + TIMESTAMPS;
+        if (events.length() == 0) {
+            return;
+        }
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, apiUrl, events.toString(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Common.makeToast(getApplicationContext(), "Uploaded successfully to server!");
+                        System.out.println(response.toString());
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        System.err.println(error.getMessage());
                     }
                 });
         Volley.newRequestQueue(this).add(jsObjRequest);

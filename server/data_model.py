@@ -60,6 +60,9 @@ class Timestamps(object):
         :return: A tuple of a boolean and a string. The boolean is True if timestamps are created, False otherwise.
         The string contains the message.
         """
+        if not timestamps:
+            return False, 'no timestamps to insert.'
+
         user = users_collection.find_one({'username': username})
         if not user:
             return False, 'username {} does not exists.'.format(username)
