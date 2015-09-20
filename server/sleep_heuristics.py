@@ -14,6 +14,7 @@ def compute_sleep_time(dates):
   hours_slept = {}
   sleep_begin = {}
   sleep_end = {}
+  dates = sorted(dates)
   dates = [datetime.datetime.fromtimestamp(date) for date in dates]
 
   # find sleeping (large gaps)
