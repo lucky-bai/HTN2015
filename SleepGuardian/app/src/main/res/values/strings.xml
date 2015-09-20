@@ -2,7 +2,12 @@
     <string name="app_name">Sleep Guardian</string>
 
     <string name="username_hint">Username</string>
-    <string name="save">Save</string>
+    <string name="fullname_hint">Full Name  (if you\'ve never used Sleep Guardian before)</string>
+    <string name="save">Continue</string>
     <string name="upload">Upload</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_upload">UploadActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_select_user">SelectUserActivity</string>
 </resources>
