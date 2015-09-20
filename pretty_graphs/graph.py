@@ -1,4 +1,5 @@
 import datetime
+import time
 
 SLEEP_MIN = datetime.timedelta(hours = 4)
 SLEEP_MAX = datetime.timedelta(hours = 11)
@@ -43,7 +44,7 @@ def compute_sleep_time(dates):
   # debug
   sm = 0
   for x in hours_slept_list:
-    print x[0], x[1], sleep_begin[x[0]], sleep_end[x[0]]
+    print x[0], x[1], sleep_begin[x[0]], sleep_end[x[0]], time.mktime(sleep_begin[x[0]].timetuple()), time.mktime(sleep_end[x[0]].timetuple())
     sm += x[1]
 
   print "avg", sm / len(hours_slept)
@@ -60,6 +61,7 @@ def main():
     dates.append(datetime.datetime.fromtimestamp(int(dt_line)))
 
   hours_slept_list = compute_sleep_time(dates)
+  print len(dates)
 
 main()
 

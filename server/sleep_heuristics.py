@@ -26,7 +26,7 @@ def compute_sleep_time(dates):
     # assume that you wake up between 5am and 2pm
     # If multiple intervals fit this criterion choose the longest
     if ts_interval > SLEEP_MIN and ts_interval < SLEEP_MAX and \
-        dates[i].hour <= 14 and dates[i].hour >= 5:
+        dates[i].hour <= 14+5 and dates[i].hour >= 5+5:
       canonical_date = datetime.datetime(dates[i].year, dates[i].month, dates[i].day)
       if canonical_date not in hours_slept:
         hours_slept[canonical_date] = ts_interval.seconds / 3600.0
