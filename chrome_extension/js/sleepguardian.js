@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var full_name = $('#full_name').val()
       var username = $('#username').val()
       
+      $("#sendDataButton").val("Logging In...");
       $.get("http://www.sleepguardian.co/user/" + username)
         .done(function (data) {
           // User exists
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             chrome.alarms.create("sendDataAlarm", {"when": Date.now(), "periodInMinutes": 1440});
           }).fail(function (data) {
             console.log("Failed to create user");
+            $("#sendDataButton").val("Failed to Login. Try again.");
           });
         });
     });
@@ -88,6 +90,7 @@ function send_data() {
       });
       
       // Send Data
+      $("#sendDataButton").val("Sending...");
       if(!_.isEmpty(history)) {
         $.ajax({
           method: "POST",
@@ -96,11 +99,15 @@ function send_data() {
           data: JSON.stringify(history)
         }).done(function (data) {
           localStorage.setItem("lastSent", Date.now());
+          console.log("Data Sent.");
+          $("#sendDataButton").val("Data Sent! Send Again.");
         }).fail(function (data) {
           console.log("Data Saving Failed: " + data);
+          $("#sendDataButton").val("Send Data Failed. Send Again.");
         });
       } else {
         console.log("No Data to Send");
+        $("#sendDataButton").val("No Data To Send. Send Again.");
       }
     });
 }

@@ -97,7 +97,9 @@ input {
 }
 .form--login input[type="submit"]:focus, .form--login input[type="submit"]:hover {
   background-color: #EE4B28;
+  cursor: pointer;
 }
+
 .form__field {
   display: -webkit-box;
   display: -webkit-flex;
