@@ -1,4 +1,5 @@
 import datetime
+import time
 
 SLEEP_MIN = datetime.timedelta(hours = 4)
 SLEEP_MAX = datetime.timedelta(hours = 11)
@@ -13,6 +14,8 @@ def compute_sleep_time(dates):
   hours_slept = {}
   sleep_begin = {}
   sleep_end = {}
+  dates = sorted(dates)
+  dates = [datetime.datetime.fromtimestamp(date) for date in dates]
 
   # find sleeping (large gaps)
   for i in xrange(len(dates)):
@@ -37,30 +40,7 @@ def compute_sleep_time(dates):
   # Convert to list, average, etc
   hours_slept_list = []
   for a,b in hours_slept.iteritems():
-    hours_slept_list.append((a,b))
+    hours_slept_list.append((time.mktime(a.timetuple()),b))
   hours_slept_list = sorted(hours_slept_list)
 
-  # debug
-  sm = 0
-  for x in hours_slept_list:
-    print x[0], x[1], sleep_begin[x[0]], sleep_end[x[0]]
-    sm += x[1]
-
-  print "avg", sm / len(hours_slept)
-  print "num", len(hours_slept)
-
   return hours_slept_list
-
-
-def main():
-  # Parse into datetime
-  dfile = open('../export_chrome_db/bai_chrome.txt', 'r').readlines()
-  dates = []
-  for dt_line in dfile:
-    dates.append(datetime.datetime.fromtimestamp(int(dt_line)))
-
-  hours_slept_list = compute_sleep_time(dates)
-
-main()
-
-

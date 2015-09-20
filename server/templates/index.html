@@ -50,7 +50,7 @@
               </div>
               <div style="height:3em"></div>
 
-                <a id="getYourData" href="" class="btn btn-primary btn-xl page-scroll">Get your data!</a>
+                <div id="getYourData" href="" class="btn btn-primary btn-xl page-scroll">Get your data!</div>
             </div>
         </div>
     </header>
@@ -71,15 +71,16 @@
     <script src="js/creative.js"></script>
 
     <script>
-    if (localStorage.getItem("username")) {
-        $(location).attr('href', '/graphs');
-    }
+    $(document).ready(function(){
+        if (localStorage.getItem("username")) {
+            window.location.href = '/graphs';
+        }
 
-    $('#getYourData').submit(function (evt) {
-        localStorage.setItem("username", $("#inputlg").val());
-        $(location).attr('href', '/graphs');
-        evt.preventDefault();
-    }
+        $('#getYourData').click(function (evt) {
+            localStorage.setItem("username", $("#inputlg").val());
+            window.location.href = '/graphs';
+        });
+    }); 
     </script>
 
 
